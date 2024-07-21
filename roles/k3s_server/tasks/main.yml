@@ -174,3 +174,6 @@
     - "{{ k3s_server_manifests_directories.files }}"
   loop_control:
     label: "{{ item.path }}"
+
+- name: Install CIFS Plugin
+  include_tasks: cifs_plugin.yml

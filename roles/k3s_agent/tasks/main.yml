@@ -34,3 +34,6 @@
     daemon_reload: true
     state: restarted
     enabled: true
+
+- name: Install CIFS Plugin
+  include_tasks: cifs_plugin.yml

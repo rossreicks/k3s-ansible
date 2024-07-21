@@ -1,0 +1,37 @@
+---
+- name: install jq
+  package:
+    name: jq
+    state: present
+
+- name: install cifs-utils
+  package:
+    name: cifs-utils
+    state: present
+
+- name: install util-linux (for mount)
+  package:
+    name: util-linux
+    state: present
+
+- name: install coreutils
+  package:
+    name: coreutils
+    state: present
+
+- name: create directory for cifs plugin
+  file:
+    path: "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/fstab~cifs"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: download cifs plugin
+  get_url:
+    url: "https://raw.githubusercontent.com/fstab/cifs/master/cifs"
+    dest: "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/fstab~cifs/cifs"
+    mode: 0755
+
+- name: verify cifs plugin
+  command: "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/fstab~cifs/cifs init"
